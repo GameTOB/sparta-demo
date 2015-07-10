@@ -42,9 +42,20 @@ gulp.task('init::vendor', function (cb) {
   		.pipe(gulp.dest(config.destDirectory+'/vendor'));
 });
 
+gulp.task('init::guide', function (cb) {
+   return gulp.src(config.srcDirectory + '/guide.html')
+	    .pipe(data(function(){
+	        return {
+	            AppConf : appConf.read()
+	        } 
+	    })) 
+	    .pipe(swig()) 
+	    .pipe(gulp.dest(config.destDirectory + '/apps'))
+	    .pipe(browserSync.reload({stream:true}));
+});
 
 gulp.task("buildInit" , function(cb){
 
-	sequence("init::clean" , "init::conf" , "init::vendor" , cb);
+	sequence("init::clean" , "init::conf" , "init::vendor" , "init::guide" , cb);
 
 });

@@ -20,13 +20,15 @@ var config = require('../config/build'),
     appConf = require('../lib/app-conf'),
     appTask = require('../lib/app-task');
 
+//混乱无比的工作流！base需要剥离 2015-07-10 
+//by zhouyao
 
-var buildScriptTask = function(rootDir,isInApp){
+var buildScriptTask = function(parentDir,isInApp){
     isInApp = isInApp || false;
 
     return function(appkey){
-        var src = isInApp ? config.srcDirectory+'/apps/'+appkey+'/'+ rootDir +'/**/*.js' :  config.srcDirectory+'/'+rootDir +'/**/*.js',
-            dest = isInApp ? config.destDirectory+'/apps/'+appkey+'/'+ rootDir  : config.destDirectory+'/'+ rootDir;
+        var src = isInApp ? config.srcDirectory+'/'+appkey+'/'+ parentDir +'/**/*.js' :  config.baseSrcDirectory+'/'+parentDir +'/**/*.js',
+            dest = isInApp ? config.destDirectory+'/apps/'+appkey+'/'+ parentDir  : config.destDirectory+'/'+ parentDir;
         var tempStream = null;
             tempStream = gulp.src( src )
                 .pipe(plumber());
@@ -41,12 +43,12 @@ var buildScriptTask = function(rootDir,isInApp){
 
 };
 
-var buildStyleTask = function(rootDir,isInApp){
+var buildStyleTask = function(parentDir,isInApp){
     isInApp = isInApp || false;
 
     return function(appkey){
-        var src = isInApp ? config.srcDirectory+'/apps/'+appkey+'/' + rootDir +'/**/*.{css,less}' : config.srcDirectory+'/'+rootDir +'/**/*.{css,less}',
-            dest = isInApp ? config.destDirectory+'/apps/'+appkey+'/'+ rootDir  : config.destDirectory+'/'+ rootDir; 
+        var src = isInApp ? config.srcDirectory+'/'+appkey+'/' + parentDir +'/**/*.{css,less}' : config.baseSrcDirectory+'/'+parentDir +'/**/*.{css,less}',
+            dest = isInApp ? config.destDirectory+'/apps/'+appkey+'/'+ parentDir  : config.destDirectory+'/'+ parentDir; 
         return gulp.src( src )
             .pipe(less({
                 paths: [path.join(__dirname, 'less', 'includes')]
@@ -64,12 +66,12 @@ var buildStyleTask = function(rootDir,isInApp){
     };
 };
 
-var buildTemplateTask = function(rootDir , option , isInApp){
+var buildTemplateTask = function(parentDir , option , isInApp){
     isInApp = isInApp || false;
 
     return function(appkey){
-        var src = isInApp ? config.srcDirectory+'/apps/'+appkey+'/' + rootDir +'/**/*.{tpl,md}' : config.srcDirectory+'/'+rootDir +'/**/*.{tpl,md}',
-            dest = isInApp ?  config.destDirectory+'/apps/'+appkey+'/'+ rootDir : config.destDirectory+'/'+ rootDir ;
+        var src = isInApp ? config.srcDirectory+'/'+appkey+'/' + parentDir +'/**/*.{tpl,md}' : config.baseSrcDirectory+'/'+parentDir +'/**/*.{tpl,md}',
+            dest = isInApp ?  config.destDirectory+'/apps/'+appkey+'/'+ parentDir : config.destDirectory+'/'+ parentDir ;
         return gulp.src( src )
             .pipe(plumber())
             .pipe(gulpif('*.md', markdown()))

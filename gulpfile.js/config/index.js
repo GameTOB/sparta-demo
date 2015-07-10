@@ -1,10 +1,10 @@
 var config = {};
 
-config.srcDirectory = "src";
-config.destDirectory = "dist";
-config.deployTmpDirectory = ".deploy-tmp";
-config.buildTmpDirectory = ".build-tmp";
-config.confDirectory = "conf";
+config.baseSrcDirectory = "lib/base/src";
+config.srcDirectory     = "src";
+config.destDirectory    = "dist";
+config.confDirectory    = "conf";
+config.deployTmpDirectory = ".deploy";
 
 
 module.exports = config;

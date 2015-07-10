@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     swig    = require('gulp-swig'),
     browserSync = require('browser-sync'),
 	modRewrite = require('connect-modrewrite'),
-	//logger = require('connect-logger'),
     shell  		= require('gulp-shell');
 
 var config = require('../config'),
@@ -16,17 +15,17 @@ var config = require('../config'),
 var browserSyncConf = {
 	server: {
 	    baseDir: [ config.destDirectory , config.destDirectory + "/apps"] ,
-	    index: ["index.html"] ,
+	    index: ["guide.html","index.html"] ,
 	    middleware: [
 	    	modRewrite([
 	    		"^/\\w+/vendor/ /vendor/ [L]",
 	    		"^/\\w+/module/ /module/ [L]",
 	    		"^/\\w+/framework/ /framework/ [L]"
-	    		]),
-	    	//logger()
+	    		])
 	    ]
 	},
-	open : "local"
+	open : "local" ,
+	startPath: "/guide.html"
 };
 
 gulp.task('httpServer::ngxconf' , function(cb){
@@ -37,7 +36,7 @@ gulp.task('httpServer::ngxconf' , function(cb){
 
 	appTask.start();
 
-	var ngxconfFile = config.confDirectory + '/options/tpl_sparta-module_ngx.conf' ;
+	var ngxconfFile = config.confDirectory + '/options/tpl_sparta_ngx.conf' ;
 
 	appTask.append("httpServer::build-ngxconf", function(appkey){
 
@@ -50,28 +49,25 @@ gulp.task('httpServer::ngxconf' , function(cb){
 			}; 
 		})) 
 		.pipe(swig({ext : ".conf"})) 
-		.pipe(rename(process.env.USER+"_"+appkey+"_sparta-module_ngx.conf"))
-		.pipe(gulp.dest(config.confDirectory + '/used'))
-		//如果已经有过link此时主动reload一下
-		.pipe(shell("sudo service nginx reload"));
-
+		.pipe(rename(process.env.USER+"_"+appkey+"_sparta_ngx.conf"))
+		.pipe(gulp.dest(config.confDirectory + '/used'));
+		
 	});
 
 	appTask.append("httpServer::link-ngxconf", function(appkey){
 
 		var ngxconfSrc  = process.env.PWD +"/"+config.confDirectory + "/used/"+process.env.USER+"_"+appkey+"_sparta_ngx.conf"
-		 ,  ngxconfDest = "/usr/local/nginx/conf/include/"+process.env.USER+"_"+appkey+"_sparta-module_ngx.conf";
+		 ,  ngxconfDest = "/usr/local/nginx/conf/include/"+process.env.USER+"_"+appkey+"_sparta_ngx.conf";
 		//console.log("ls -l "+ngxconfDest+"||sudo ln -s "+ngxconfSrc+" "+ngxconfDest);
 
 		//待讨论 , 若第一个shell出错后 return 出错；第二个shell正确后 就继续了。
 		return gulp.src(config.confDirectory)
 		.pipe(plumber())
-		.pipe(shell("ls -l "+ngxconfDest+"||sudo ln -s "+ngxconfSrc+" "+ngxconfDest))
+		.pipe(shell("ls -l "+ngxconfDest+" || sudo ln -s "+ngxconfSrc+" "+ngxconfDest))
 
 	});
 
 	appTask.finish(cb);
-
 });
 
 
@@ -90,5 +86,5 @@ gulp.task('httpServer', ['httpServer::ngxconf'] , function() {
 		console.log("httpServer","nothing to do");
 		//nothing to do
 	}
-  
+
 });

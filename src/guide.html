@@ -1,0 +1,21 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<title>引导页</title>
+</head>
+<body>
+<h3>App List :</h3>
+<ul>
+{% for item in AppConf %}
+<li><a href="/{{item.appkey}}">{{ item.appkey }}</a></li>
+{% endfor %}
+</ul>
+</body>
+</html>

@@ -9,9 +9,9 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync');
 
 var config = require('../config/build'),
+    Q  = require("q"), 
     fs = require('fs'),
     walker  = require('walker'),
-    Q = require("q"), 
     appConf = require('../lib/app-conf'),
     appTask = require('../lib/app-task');
 
@@ -75,7 +75,7 @@ gulp.task("dist::www", function(cb) {
 
         var userefAssets = useref.assets();
 
-        return gulp.src(config.srcDirectory + '/apps/'+ appkey +'/*.html')
+        return gulp.src(config.srcDirectory + '/'+ appkey +'/*.html')
             .pipe(plumber())
             .pipe(data(function(){
                 var deferred = Q.defer();
