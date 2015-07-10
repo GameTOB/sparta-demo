@@ -1,4 +1,0 @@
-[submodule "lib/base"]
-	path = lib/base
-	url = git@github.com:GameTOB/sparta-base.git
-	branch = master

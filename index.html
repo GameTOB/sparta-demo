@@ -1,0 +1,68 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8">
+<title>Sparta Module</title>
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="vendor/normalize.css/normalize.css"/>
+<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css"/>
+<link rel="stylesheet" href="vendor/animate.css/animate.css"/>
+<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css"/>
+<link rel="stylesheet" href="module/ui/css/index.css"/>
+<link rel="stylesheet" href="app/static/css/index.css"/>
+<script>
+window.APPCONF = {
+	APP_API_URL : "http://gametob.github.io/sparta-module/" ,
+	APPKEY : "example",
+	TPLROOT : "app/template"
+};
+</script>
+</head>
+<body ng-app="app">
+<!--[if lte IE 8]><p class="browsehappy">您使用的浏览器版本已经过时，请使用 <a href="http://se.360.cn/">360安全浏览器</a> 获得最佳体验！</p><![endif]-->
+<div ng-include="'app/template/index.tpl'"></div>
+</body>
+<script src="vendor/jquery/dist/jquery.js"></script>
+<script src="vendor/angular/angular.js"></script>
+<script src="vendor/angular-sanitize/angular-sanitize.js"></script>
+<script src="vendor/angular-animate/angular-animate.js"></script>
+<script src="vendor/angular-route/angular-route.js"></script>
+<script src="vendor/angular-mocks/angular-mocks.js"></script>
+<script src="vendor/angular-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<!--[if lte IE 8]>
+<script src="vendor/es5-shim/es5-shim.js"></script>
+<script src="vendor/json3/lib/json3.js"></script>
+<![endif]-->
+<script src="module/bootstrap.js"></script>
+<script src="module/ui/alert.js"></script>
+<script src="module/ui/confirm.js"></script>
+<script src="module/ui/menu.js"></script>
+<script src="module/ui/template/template.js"></script>
+<script src="framework/bootstrap.js"></script>
+
+<script src="framework/conf/api-errno.js"></script>
+<script src="framework/conf/appconf.js"></script>
+<script src="framework/conf/appenv.js"></script>
+<script src="framework/conf/entity-status.js"></script>
+<script src="framework/extend/route-simple-when.js"></script>
+<script src="framework/service/api-mock.js"></script>
+<script src="framework/service/api.js"></script>
+<script src="framework/service/debug.js"></script>
+<script src="framework/service/user.js"></script>
+
+<script src="app/mock/menu.js"></script>
+<script src="app/mock/user.js"></script>
+<script src="app/mock.js"></script>
+<script src="app/index.js"></script>
+
+<script src="app/conf/routes.js"></script>
+<script src="app/service/menu.js"></script>
+<script src="app/controller/readme.js"></script>
+<script src="app/template/template.js"></script>
+</html>
+
