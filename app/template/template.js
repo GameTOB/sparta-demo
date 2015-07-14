@@ -11,35 +11,6 @@ module.run(['$templateCache', function($templateCache) {
     '		<div class="sidebar-collapse">\n' +
     '			<h2>菜单</h2>\n' +
     '			<div id="side-menu" ui-menu root-data="menuData"></div>\n' +
-    '<!-- 			<ul class="nav" id="side-menu">\n' +
-    '				<li ng-repeat="node1st in menu.data" \n' +
-    '					ng-class="{active: menu.NodeSvc.isUnfold(node1st)}"\n' +
-    '					todo="这里需要封成 menu"\n' +
-    '					>\n' +
-    '					<a href="{{node1st.url}}" ng-click="!node1st.url && menu.NodeSvc.toggleFold(node1st)">\n' +
-    '						<span class="nav-label">{{node1st.title}}</span>\n' +
-    '						<span class="fa arrow" ng-if="menu.NodeSvc.isParent(node1st)"></span>\n' +
-    '					</a>\n' +
-    '					<ul class="nav nav-second-level collapse"\n' +
-    '						ng-class="{in: menu.NodeSvc.isUnfold(node1st)}" \n' +
-    '						ng-if="menu.NodeSvc.isParent(node1st)">\n' +
-    '						<li ng-repeat="node2nd in menu.NodeSvc.getChildren(node1st)" \n' +
-    '							ng-class="{active: menu.NodeSvc.isUnfold(node2nd)}">\n' +
-    '							<a href="{{node2nd.url}}" ng-click="!node2nd.url && menu.NodeSvc.toggleFold(node2nd)">\n' +
-    '							{{node2nd.title}}\n' +
-    '							<span class="fa arrow" ng-if="menu.NodeSvc.isParent(node2nd)"></span>\n' +
-    '							</a>\n' +
-    '							<ul class="nav nav-third-level collapse"\n' +
-    '							ng-class="{in: menu.NodeSvc.isUnfold(node2nd)}" \n' +
-    '							ng-if="menu.NodeSvc.isParent(node2nd)">\n' +
-    '								<li ng-repeat="node3rd in menu.NodeSvc.getChildren(node2nd)"\n' +
-    '									ng-class="{active: menu.NodeSvc.isUnfold(node3rd)}"\n' +
-    '								><a href="{{node3rd.url}}">{{node3rd.title}}</a></li>\n' +
-    '							</ul>\n' +
-    '						</li>\n' +
-    '					</ul>\n' +
-    '				</li>\n' +
-    '			</ul> -->\n' +
     '		</div>\n' +
     '	</nav>\n' +
     '	<div id="page-wrapper" class="gray-bg">\n' +
@@ -67,5 +38,217 @@ module.run(['$templateCache', function($templateCache) {
     '<li>06/19/2015 Menu</li>\n' +
     '</ol>\n' +
     '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('app');
+} catch (e) {
+  module = angular.module('app', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('app/template/form/validate.tpl',
+    '<div class="row">\n' +
+    '    <div class="col-xs-12">\n' +
+    '    <div class="ibox">\n' +
+    '        <div class="ibox-title"><h3 class="panel-title">表单校验样例</h3></div>\n' +
+    '        <div class="ibox-content">\n' +
+    '            <form novalidate class="form-horizontal" name="demoForm" ng-submit="save(demoForm)">\n' +
+    '            <pre style="height:100px;overflow:auto;">{{user | json}}</pre>\n' +
+    '            <div class="form-group has-feedback"\n' +
+    '                        ng-class="{\'has-error\': (demoForm.$submitted || demoForm.name.$dirty) && demoForm.name.$invalid }">\n' +
+    '                <label class="col-xs-2 control-label">用户名:</label>\n' +
+    '                <div class="col-xs-6">\n' +
+    '                    <input name="name" type="text" class="form-control"\n' +
+    '                        ng-model="user.name"\n' +
+    '                        ng-pattern="/^[A-Za-z]{1}[0-9A-Za-z_]+$/"\n' +
+    '                        ui-validate = "{uniqueUsername:\'isUniqueUsername($value)\'}"\n' +
+    '                        placeholder="请输入用户名 以字母开头"\n' +
+    '                        maxlength="30"\n' +
+    '                        required />\n' +
+    '                    <span class="help-block">\n' +
+    '                        [用户名] 是 (改变后||首次提交后)&&不合法时 显示错误<br/>\n' +
+    '                         (demoForm.$submitted || demoForm.name.$dirty) && demoForm.name.$invalid <br/>\n' +
+    '                        提供检查用户名重复的样例:isUniqueUsername($modelValue)<br/>样例中长度超过5则提示用户名重复\n' +
+    '                    </span>\n' +
+    '                </div>\n' +
+    '                <div class="col-xs-4 help-block error-message" ng-messages="demoForm.name.$error" ng-show=" (demoForm.$submitted || demoForm.name.$dirty) && demoForm.name.$invalid">\n' +
+    '                    <span ng-message="required">不能为空</span>\n' +
+    '                    <span ng-message="pattern">以字母开头 且长度大于1</span>\n' +
+    '                    <span ng-message="uniqueUsername">用户名重复</span>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group has-feedback"\n' +
+    '                        ng-class="{\'has-error\': (demoForm.$submitted || demoForm.password.$dirty) && demoForm.password.$invalid }">\n' +
+    '                <label class="col-xs-2 control-label">设置密码:</label>\n' +
+    '                <div class="col-xs-6">\n' +
+    '                    <input name="password" type="password" class="form-control"\n' +
+    '                        ng-model="user.password"\n' +
+    '                        ng-minlength="6"\n' +
+    '                        placeholder="请输入密码"\n' +
+    '                        ui-validate="{complexity:\'isComplexity($value)\'}"\n' +
+    '                        required />\n' +
+    '                    <span class="help-block">\n' +
+    '                        [设置密码] 是 (改变后||首次提交后)&&不合法时 显示错误<br/>\n' +
+    '                        (demoForm.$submitted || demoForm.password.$dirty) && demoForm.password.$invalid <br/>\n' +
+    '                        提供检查密码复杂度的样例:isComplexity($modelValue)<br/>\n' +
+    '                        样例中要求必须包含英文字母\n' +
+    '                    </span>\n' +
+    '                </div>\n' +
+    '                <div class="col-xs-4 help-block error-message" ng-messages="demoForm.password.$error" ng-show=" (demoForm.$submitted || demoForm.password.$dirty) && demoForm.password.$invalid">\n' +
+    '                    <span ng-message="complexity">密码复杂度不够</span>\n' +
+    '                    <span ng-message="minlength">长度不能小于6</span>\n' +
+    '                    <span ng-message="required">不能为空</span>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group has-feedback"\n' +
+    '                        ng-class="{\'has-error\': (demoForm.$submitted || demoForm.confirmPassword.$dirty) && demoForm.confirmPassword.$invalid }">\n' +
+    '                <label class="col-xs-2 control-label">确认密码:</label>\n' +
+    '                <div class="col-xs-6">\n' +
+    '                    <input name="confirmPassword" type="password" class="form-control"\n' +
+    '                        ng-model="user.confirmPassword"\n' +
+    '                        placeholder="请再次输入密码"\n' +
+    '                        ui-validate="{sameAsPassword:\'!user.password || $value==user.password\'}"\n' +
+    '                        ui-validate-watch="\'user.password\'"\n' +
+    '                        required />\n' +
+    '                    <span class="help-block">\n' +
+    '                        [确认密码] 是 首次提交后&&不合法时 显示错误<br/>\n' +
+    '                        demoForm.$submitted && demoForm.confirmPassword.$invalid <br/>\n' +
+    '                        确认密码检查是否和密码录入一致 直接写了expression\n' +
+    '                    </span>\n' +
+    '                </div>\n' +
+    '                <div class="col-xs-4 help-block error-message" ng-messages="demoForm.confirmPassword.$error" ng-show=" (demoForm.$submitted || demoForm.confirmPassword.$dirty) && demoForm.confirmPassword.$invalid">\n' +
+    '                    <span ng-message="sameAsPassword">请与设置的密码保持一致</span>\n' +
+    '                    <span ng-message="required">不能为空</span>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group has-feedback"\n' +
+    '                        ng-class="{\'has-error\': demoForm.$submitted && demoForm.realname.$invalid }">\n' +
+    '                <label class="col-xs-2 control-label">姓名:</label>\n' +
+    '                <div class="col-xs-6">\n' +
+    '                    <input name="realname" type="text" class="form-control"\n' +
+    '                        ng-model="user.realname"\n' +
+    '                        ng-minlength="1"\n' +
+    '                        placeholder="请输入姓名"/>\n' +
+    '                    <span class="help-block">\n' +
+    '                        [姓名]是 首次提交后&&不合法 显示错误 <br/>\n' +
+    '                        demoForm.$submitted  && demoForm.realname.$invalid<br/>\n' +
+    '                        不做必填要求 \n' +
+    '                    </span>\n' +
+    '                </div>\n' +
+    '                <div class="col-xs-4 help-block error-message" ng-messages="demoForm.realname.$error" ng-show="demoForm.$submitted && demoForm.realname.$invalid">\n' +
+    '                    <span ng-message="minlength">长度不能小于1</span>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            \n' +
+    '            <div class="form-group has-feedback"\n' +
+    '                        ng-class="{\'has-error\': demoForm.$submitted && demoForm.mobile.$invalid }">\n' +
+    '                <label class="col-xs-2 control-label">手机号:</label>\n' +
+    '                <div class="col-xs-6">\n' +
+    '                    <input name="mobile" type="text" class="form-control"\n' +
+    '                        ng-model="user.mobile"\n' +
+    '                        ng-pattern="ValidatePattern.mobile"\n' +
+    '                        placeholder="请输入手机号"\n' +
+    '                        required/>\n' +
+    '                    <span class="help-block">\n' +
+    '                        [手机号]及之后 是 首次提交后&&不合法 显示错误 <br/>\n' +
+    '                        demoForm.$submitted  && demoForm.mobile.$invalid\n' +
+    '                    </span>\n' +
+    '                </div>\n' +
+    '                <div class="col-xs-4 help-block error-message" ng-messages="demoForm.mobile.$error" ng-show="demoForm.$submitted && demoForm.mobile.$invalid">\n' +
+    '                    <span ng-message="required">不能为空</span>\n' +
+    '                    <span ng-message="pattern">格式不对</span>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group has-feedback"\n' +
+    '                        ng-class="{\'has-error\': demoForm.$submitted && demoForm.email.$invalid }">\n' +
+    '                <label class="col-xs-2 control-label">邮箱:</label>\n' +
+    '                <div class="col-xs-6">\n' +
+    '                    <input name="email" type="email" class="form-control"\n' +
+    '                        ng-model="user.email"\n' +
+    '                        placeholder="请输入邮箱"/>\n' +
+    '                    <span class="help-block">\n' +
+    '                        [手机号]及之后 是 首次提交后&&不合法 显示错误 <br/>\n' +
+    '                        demoForm.$submitted  && email.mobile.$invalid<br/>\n' +
+    '                        不做必填要求 \n' +
+    '                    </span>\n' +
+    '                </div>\n' +
+    '                <div class="col-xs-4 help-block error-message" ng-messages="demoForm.email.$error" ng-show="demoForm.$submitted && demoForm.email.$invalid">\n' +
+    '                    <span ng-message="email">格式不对</span>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '    \n' +
+    '            <div class="hr-line-dashed"></div>\n' +
+    '\n' +
+    '            <div class="form-group">\n' +
+    '                <div class="col-xs-8 col-xs-offset-2">\n' +
+    '                    <button type="submit"  class="btn btn-info" ng-disabled="demoForm.$submitting" ng-switch="demoForm.$submitting">\n' +
+    '                    <span ng-switch-default>提交</span>\n' +
+    '                    <span ng-switch-when="true">提交中...</span>\n' +
+    '                    </button>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '    \n' +
+    '\n' +
+    '            </form>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('app');
+} catch (e) {
+  module = angular.module('app', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('app/template/form/ng-model.tpl',
+    '<h1 id="ngmodel">ngModel</h1>\n' +
+    '<form novalidate class="form-horizontal" name="demoForm" ng-submit="save(demoForm,$event)">\n' +
+    '<pre style="height:100px;">{{user | json}}</pre>\n' +
+    '\n' +
+    '<div class="form-group has-feedback"\n' +
+    '            ng-class="{\'has-error\': (demoForm.$submitted || demoForm.mobile.$dirty) && demoForm.mobile.$invalid }">\n' +
+    '    <label class="col-xs-2 control-label">手机号:</label>\n' +
+    '    <div class="col-xs-4">\n' +
+    '        <input name="mobile" type="text" class="form-control"\n' +
+    '            ng-model="user.mobile"\n' +
+    '            placeholder="请输入手机号"\n' +
+    '            required/>\n' +
+    '        <div class="help-block error-message" ng-show=" (demoForm.$submitted || demoForm.mobile.$dirty) && demoForm.mobile.$invalid">\n' +
+    '            <span ng-if="demoForm.mobile.$error.required">不能为空</span>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '<div class="form-group">\n' +
+    '        <div class="col-xs-8 col-xs-offset-2">\n' +
+    '            <button type="submit"  class="btn btn-info" ng-disabled="demoForm.$submitting" ng-switch="demoForm.$submitting">\n' +
+    '            <span ng-switch-default>提交</span>\n' +
+    '            <span ng-switch-when="true">提交中...</span>\n' +
+    '            </button>\n' +
+    '        </div>\n' +
+    '</div>\n' +
+    '<div class="form-group">\n' +
+    '    <div class="col-xs-4">\n' +
+    '    <pre>{{demoForm | json}}</pre>\n' +
+    '    </div>\n' +
+    '    <div class="col-xs-4">\n' +
+    '    <pre>{{formElement | json}}</pre>\n' +
+    '    <pre>{{formSerializeArray | json}}</pre>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '</form>');
 }]);
 })();

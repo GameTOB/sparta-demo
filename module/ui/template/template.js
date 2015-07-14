@@ -48,7 +48,7 @@ module.run(['$templateCache', function($templateCache) {
     '	<li ng-repeat="node in uiMenuNodes" \n' +
     '		ng-class="{active: node.isUnfold()}">\n' +
     '		<a href="{{node.url}}" ng-click="!node.url && node.toggleUnfold()">\n' +
-    '			<span class="nav-label">{{node.title}} {{node.id}}</span>\n' +
+    '			<span class="nav-label">{{node.title}}</span>\n' +
     '			<span class="fa arrow" ng-if="node.isParent()"></span>\n' +
     '		</a>\n' +
     '		<div ui-menu ng-if="node.isParent()" children-data="node.getChildren()" ng-class="{in: node.isUnfold()}" class="collapse"></div>\n' +
