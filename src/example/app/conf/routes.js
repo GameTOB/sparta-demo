@@ -6,9 +6,10 @@ angular.module('app')
     function($routeProvider) {
         $routeProvider
         .when('/', {
-            redirectTo: '/master/dashboard'
+            redirectTo: '/form/ngModel'
         })
-        //.simpleWhen('/readme');
-        //.otherwise('/readme');
+        .simpleWhen('/form/ngModel')
+        .simpleWhen('/form/validate')
+        .otherwise('/');
     }
 ])
