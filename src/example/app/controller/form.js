@@ -39,7 +39,7 @@ angular.module("app")
 
 })
 
-.controller("app.form.validateCtrl", function($scope, $timeout, $q , UIAlert , ExampleData , ValidatePattern) {
+.controller("app.form.validateCtrl", function($scope, $timeout, $q , $anchorScroll, UIAlert , ExampleData , ValidatePattern) {
 
     $scope.user = {
         mobile : "13426077944"
@@ -83,6 +83,13 @@ angular.module("app")
 
 
         }else{
+            var errorKeys = Object.keys(demoForm.$error);
+            if(angular.isArray(errorKeys) && errorKeys.length>0 && demoForm.$error[errorKeys[0]].length>0){
+                var inputElem = $("input[name="+demoForm.$error[errorKeys[0]][0].$name+"]");
+                $anchorScroll.yOffset = inputElem;
+                $anchorScroll();
+                inputElem.focus();
+            }
             demoForm.$submitting = false;
         }
 

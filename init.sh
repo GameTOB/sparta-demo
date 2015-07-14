@@ -16,7 +16,7 @@ fi
 echo "Updating all git submodules..."
 git submodule init
 git submodule update
-git submodule foreach --recursive "git checkout master"
+git submodule foreach "git checkout master"
 git submodule foreach --recursive "git submodule update"
 
 echo "Pulling all git submodules..."
