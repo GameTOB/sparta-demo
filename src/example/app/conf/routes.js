@@ -10,6 +10,7 @@ angular.module('app')
         })
         .simpleWhen('/form/ngModel')
         .simpleWhen('/form/validate')
+        .simpleWhen('/form/upload')
         .otherwise('/');
     }
 ])

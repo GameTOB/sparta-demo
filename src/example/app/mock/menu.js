@@ -16,7 +16,8 @@ angular.module('framework')
 
     ApiMock.reg('/menu/get', [createMenuNode(1000, "表单例子", "", [
         createMenuNode(1001, "ngModel", "/form/ngModel"),
-        createMenuNode(1002, "validate", "/form/validate")
+        createMenuNode(1002, "validate", "/form/validate"),
+        createMenuNode(1003, "upload", "/form/upload")
         ])]
     );
 
