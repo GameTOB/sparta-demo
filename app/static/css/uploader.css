@@ -11,3 +11,9 @@
   /* IE6, IE7 */
   clip: rect(1px, 1px, 1px, 1px);
 }
+.webuploader-container.btn {
+  padding: 0;
+}
+.webuploader-container.btn .webuploader-pick {
+  padding: 6px 12px;
+}

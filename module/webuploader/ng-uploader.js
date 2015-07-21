@@ -86,29 +86,29 @@ angular.module('module')
         };
     }
 ])
-.directive('uploaderPick', [
-
-    function() {
-        return {
-            restrict: 'EA',
-            scope: false,
-            require: '^uploaderInit',
-            link: function(scope, element, attrs) {
-                var isMultiple = function() {
-                    var options = scope.$uploader.options;
-                    //1 如果限制文件个数为1 则也只能单选 注意不限制个位数也符合可多选条件
-                    //2 非1 时 属性multiple才管用
-                    return +options.fileNumLimit != 1 && attrs.hasOwnProperty("pickMultiple");
+    .directive('uploaderPick',
+        ["$timeout", function($timeout) {
+            return {
+                restrict: 'EA',
+                scope: false,
+                require: '^uploaderInit',
+                link: function(scope, element, attrs) {
+                    var isMultiple = function() {
+                        var options = scope.$uploader.options;
+                        //1 如果限制文件个数为1 则也只能单选 注意不限制个位数也符合可多选条件
+                        //2 非1 时 属性multiple才管用
+                        return +options.fileNumLimit != 1 && attrs.hasOwnProperty("pickMultiple");
+                    }
+                    $timeout(function() {
+                        scope.$uploader.addButton({
+                            id: element,
+                            multiple: isMultiple()
+                        });
+                    }, 1);
                 }
-
-                scope.$uploader.addButton({
-                    id: element,
-                    multiple: isMultiple()
-                });
-            }
-        };
-    }
-])
+            };
+        }]
+)
 
 .directive('uploaderThumb', [
 
@@ -141,14 +141,10 @@ angular.module('module')
     options.auto = false;
     //如果存在[uploader-dnd]则将其纳入dnd容器
     var dnd = $element.find("[uploader-dnd]");
-    if(dnd.length>0){
-    	options.dnd = dnd;
-    	options.disableGlobalDnd = true;
-    }
-    //如果存在[uploader-paste]则将其纳入paste容器
-    var paste = $element.find("[uploader-paste]");
-    if(paste.length>0){
-    	options.paste = paste;
+    if (dnd.length > 0) {
+        //console.log(dnd);
+        options.dnd = dnd;
+        options.disableGlobalDnd = true;
     }
 
     $uploader = Uploader.create(options);
@@ -186,12 +182,12 @@ angular.module('module')
         // 复写 $uploader.upload , $uploader.retry
         // 增加 beforeUpload切面事件
         var retryFnt = $uploader.retry;
-        $uploader.upload = $uploader.retry = function(){
-        	// console.log($uploader.trigger("beforeUpload"));
-        	if(!$uploader.trigger("beforeUpload")){
-        		return;
-        	}
-        	return retryFnt.apply($uploader);
+        $uploader.upload = $uploader.retry = function() {
+            // console.log($uploader.trigger("beforeUpload"));
+            if (!$uploader.trigger("beforeUpload")) {
+                return;
+            }
+            return retryFnt.apply($uploader);
         };
 
         // $uploader.isFinished()

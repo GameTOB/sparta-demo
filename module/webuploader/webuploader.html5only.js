@@ -1777,9 +1777,8 @@
     
                     height = button.outerHeight ?
                             button.outerHeight() : button.height(),
-    
+                    
                     pos = button.offset();
-    
                 width && height && shimContainer.css({
                     bottom: 'auto',
                     right: 'auto',
