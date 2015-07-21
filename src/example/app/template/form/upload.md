@@ -1,9 +1,10 @@
 #upload
 <div class="row">
 <div class="col-xs-12">
+	
 	<div class="ibox" ng-controller="app.form.uploadAvatarCtrl">
 		<div class="ibox-title">
-			选取头像的案例 (只能1张 , 重新选取可自动替换上次所选)
+			选取头像的案例 (只能1张 , 单张照片大小须小于2M) (重新选取可自动替换上次所选)
 		</div>
 		<div class="ibox-content">
 			<div class="alert alert-success" ng-if="avatar">您已保存完头像 ，可继续其他操作</div>
@@ -36,9 +37,12 @@
 			</div>
 		</div>
 	</div>
+
+
+
 	<div class="ibox" ng-controller="app.form.uploadPhotosCtrl">
 		<div class="ibox-title">
-			选取照片案例 (至少2张，最多3张)
+			选取照片案例 (至少2张，最多3张 , 所有照片大小之和须小于10M)
 		</div>
 		<div class="ibox-content">
 			<div class="alert alert-success" ng-if="photos.length>0">您已上传完毕照片 ，可继续其他操作</div>
