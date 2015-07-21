@@ -23,6 +23,7 @@
 				uploader-pick 
 				pick-multiple 
 				ng-if="!$uploader.isFinished()"
+				ng-disabled="$uploader.isInProgress()" 
 				class="btn btn-info">选取
 			    </button> 
 			    <button class="btn btn-primary" 
@@ -62,6 +63,7 @@
 				uploader-pick 
 				pick-multiple 
 				ng-if="!$uploader.isFinished()"
+				ng-disabled="$uploader.isInProgress()" 
 				class="btn btn-info">选取
 			    </button> 
 			    <button class="btn btn-primary" 
