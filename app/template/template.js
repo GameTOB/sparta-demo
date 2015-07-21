@@ -264,9 +264,10 @@ module.run(['$templateCache', function($templateCache) {
     '<h1 id="upload">upload</h1>\n' +
     '<div class="row">\n' +
     '<div class="col-xs-12">\n' +
+    '\n' +
     '    <div class="ibox" ng-controller="app.form.uploadAvatarCtrl">\n' +
     '        <div class="ibox-title">\n' +
-    '            选取头像的案例 (只能1张 , 重新选取可自动替换上次所选)\n' +
+    '            选取头像的案例 (只能1张 , 单张照片大小须小于2M) (重新选取可自动替换上次所选)\n' +
     '        </div>\n' +
     '        <div class="ibox-content">\n' +
     '            <div class="alert alert-success" ng-if="avatar">您已保存完头像 ，可继续其他操作</div>\n' +
@@ -299,45 +300,49 @@ module.run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '        </div>\n' +
     '    </div>\n' +
-    '    <div class="ibox" ng-controller="app.form.uploadPhotosCtrl">\n' +
-    '        <div class="ibox-title">\n' +
-    '            选取照片案例 (至少2张，最多3张)\n' +
-    '        </div>\n' +
-    '        <div class="ibox-content">\n' +
-    '            <div class="alert alert-success" ng-if="photos.length>0">您已上传完毕照片 ，可继续其他操作</div>\n' +
-    '            <div name="photosUploader" class="row" uploader-init="uploaderOptions">\n' +
-    '                <p ng-if="errorMessage" class="alert alert-warning">{{errorMessage}}</p>\n' +
-    '                <div class="col-xs-3" ng-repeat="file in $uploader.files">\n' +
-    '                    <div class="thumbnail">\n' +
-    '                        <img  uploader-thumb="file" \n' +
-    '                            alt="{{file.name}}" />\n' +
-    '                      <div class="caption">\n' +
-    '                        <p>\n' +
-    '                            <button class="btn btn-danger fa fa-times" ng-if="file.getStatus()==\'inited\'" ng-click="$uploader.removeFile(file)"></button>\n' +
-    '                        </p>\n' +
-    '                        <p ng-if="file.getStatus()==\'complete\'">已上传 ，<a href="{{photos[$index]}}" target="_blank">点此查看</a></p>\n' +
-    '                      </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '                <div class="col-xs-12">\n' +
-    '                <button \n' +
-    '                uploader-pick \n' +
-    '                pick-multiple \n' +
-    '                ng-if="!$uploader.isFinished()"\n' +
-    '                class="btn btn-info">选取\n' +
-    '                </button> \n' +
-    '                <button class="btn btn-primary" \n' +
-    '                ng-if="$uploader.files.length > 0 && !$uploader.isFinished()" \n' +
-    '                ng-click="$uploader.upload();" \n' +
-    '                ng-disabled="$uploader.isInProgress()" \n' +
-    '                ng-switch="$uploader.isInProgress()">\n' +
-    '                    <span ng-switch-default>上传</span>\n' +
-    '                    <span ng-switch-when="true">上传中...</span>\n' +
-    '                </button></p>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '</div>');
+    '\n' +
+    '\n' +
+    '\n' +
+    '<pre><code>&lt;div class=&quot;ibox&quot; ng-controller=&quot;app.form.uploadPhotosCtrl&quot;&gt;\n' +
+    '    &lt;div class=&quot;ibox-title&quot;&gt;\n' +
+    '        选取照片案例 (至少2张，最多3张 , 所有照片大小之和须小于10M)\n' +
+    '    &lt;/div&gt;\n' +
+    '    &lt;div class=&quot;ibox-content&quot;&gt;\n' +
+    '        &lt;div class=&quot;alert alert-success&quot; ng-if=&quot;photos.length&gt;0&quot;&gt;您已上传完毕照片 ，可继续其他操作&lt;/div&gt;\n' +
+    '        &lt;div name=&quot;photosUploader&quot; class=&quot;row&quot; uploader-init=&quot;uploaderOptions&quot;&gt;\n' +
+    '            &lt;p ng-if=&quot;errorMessage&quot; class=&quot;alert alert-warning&quot;&gt;{{errorMessage}}&lt;/p&gt;\n' +
+    '            &lt;div class=&quot;col-xs-3&quot; ng-repeat=&quot;file in $uploader.files&quot;&gt;\n' +
+    '                &lt;div class=&quot;thumbnail&quot;&gt;\n' +
+    '                    &lt;img  uploader-thumb=&quot;file&quot; \n' +
+    '                        alt=&quot;{{file.name}}&quot; /&gt;\n' +
+    '                  &lt;div class=&quot;caption&quot;&gt;\n' +
+    '                    &lt;p&gt;\n' +
+    '                        &lt;button class=&quot;btn btn-danger fa fa-times&quot; ng-if=&quot;file.getStatus()==&#39;inited&#39;&quot; ng-click=&quot;$uploader.removeFile(file)&quot;&gt;&lt;/button&gt;\n' +
+    '                    &lt;/p&gt;\n' +
+    '                    &lt;p ng-if=&quot;file.getStatus()==&#39;complete&#39;&quot;&gt;已上传 ，&lt;a href=&quot;{{photos[$index]}}&quot; target=&quot;_blank&quot;&gt;点此查看&lt;/a&gt;&lt;/p&gt;\n' +
+    '                  &lt;/div&gt;\n' +
+    '                &lt;/div&gt;\n' +
+    '            &lt;/div&gt;\n' +
+    '            &lt;div class=&quot;col-xs-12&quot;&gt;\n' +
+    '            &lt;button \n' +
+    '            uploader-pick \n' +
+    '            pick-multiple \n' +
+    '            ng-if=&quot;!$uploader.isFinished()&quot;\n' +
+    '            class=&quot;btn btn-info&quot;&gt;选取\n' +
+    '            &lt;/button&gt; \n' +
+    '            &lt;button class=&quot;btn btn-primary&quot; \n' +
+    '            ng-if=&quot;$uploader.files.length &gt; 0 &amp;&amp; !$uploader.isFinished()&quot; \n' +
+    '            ng-click=&quot;$uploader.upload();&quot; \n' +
+    '            ng-disabled=&quot;$uploader.isInProgress()&quot; \n' +
+    '            ng-switch=&quot;$uploader.isInProgress()&quot;&gt;\n' +
+    '                &lt;span ng-switch-default&gt;上传&lt;/span&gt;\n' +
+    '                &lt;span ng-switch-when=&quot;true&quot;&gt;上传中...&lt;/span&gt;\n' +
+    '            &lt;/button&gt;&lt;/p&gt;\n' +
+    '        &lt;/div&gt;\n' +
+    '    &lt;/div&gt;\n' +
+    '&lt;/div&gt;\n' +
+    '</code></pre><p></div>\n' +
+    '</div></p>\n' +
+    '');
 }]);
 })();
