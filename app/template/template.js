@@ -74,6 +74,7 @@ module.run(['$templateCache', function($templateCache) {
     '				uploader-pick \n' +
     '				pick-multiple \n' +
     '				ng-if="!$uploader.isFinished()"\n' +
+    '				ng-disabled="$uploader.isInProgress()" \n' +
     '				class="btn btn-info">选取\n' +
     '			    </button> \n' +
     '			    <button class="btn btn-primary" \n' +
@@ -113,6 +114,7 @@ module.run(['$templateCache', function($templateCache) {
     '				uploader-pick \n' +
     '				pick-multiple \n' +
     '				ng-if="!$uploader.isFinished()"\n' +
+    '				ng-disabled="$uploader.isInProgress()" \n' +
     '				class="btn btn-info">选取\n' +
     '			    </button> \n' +
     '			    <button class="btn btn-primary" \n' +
