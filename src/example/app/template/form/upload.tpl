@@ -1,7 +1,6 @@
-#upload
 <div class="row">
 <div class="col-xs-12">
-	
+
 	<div class="ibox" ng-controller="app.form.uploadAvatarCtrl">
 		<div class="ibox-title">
 			选取头像的案例 (只能1张 , 单张照片大小须小于2M) (重新选取可自动替换上次所选)
@@ -37,8 +36,6 @@
 			</div>
 		</div>
 	</div>
-
-
 
 	<div class="ibox" ng-controller="app.form.uploadPhotosCtrl">
 		<div class="ibox-title">
