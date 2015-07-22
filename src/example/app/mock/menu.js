@@ -1,6 +1,6 @@
 angular.module('framework')
 
-.run(function (ApiMock) {
+.run(function (ApiMock , APPCONF) {
 
     var createMenuNode = function(id, title, url, children) {
         var node = {
@@ -14,7 +14,7 @@ angular.module('framework')
         return node;
     };
 
-    ApiMock.reg('/menu/get', [createMenuNode(1000, "表单例子", "", [
+    ApiMock.reg('/menu/get_tree', [createMenuNode(1000, "表单例子", "", [
         createMenuNode(1001, "ngModel", "/form/ngModel"),
         createMenuNode(1002, "validate", "/form/validate"),
         createMenuNode(1003, "upload", "/form/upload")

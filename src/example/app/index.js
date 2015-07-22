@@ -24,10 +24,10 @@ angular.module('app', [
 })
 
 
-.controller('app.indexCtrl', function($scope, AppMenu) {
+.controller('app.indexCtrl', function($scope, Menu) {
   
     $scope.menuData = [];
-    AppMenu.getData().then(function(data){
+    Menu.getAll().then(function(data){
         $scope.menuData = data;
     });
 

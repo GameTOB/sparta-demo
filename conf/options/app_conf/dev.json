@@ -1,6 +1,7 @@
 {
 	"example" : {
 		"appkey"   : "example",
-		"appApiUrl"   : "http://gametob.github.io/sparta-module/"
+		"appApiUrl"   : "http://gametob.github.io/sparta-module/",
+		"publicApiUrl" : "http://publicUrl/"
 	}
 }
