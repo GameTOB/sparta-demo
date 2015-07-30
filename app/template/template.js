@@ -48,6 +48,99 @@ try {
   module = angular.module('app', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('app/template/form/datepicker.tpl',
+    '<h1>module/datepicker 使用范例</h1>\n' +
+    '<div class="row">\n' +
+    '<div class="col-xs-12">\n' +
+    '	<form novalidate class="form-horizontal" name="demoForm" ng-submit="save(demoForm)">\n' +
+    '	<pre>属性参数说明:{\n' +
+    '		step:"只有到分钟级别才有效 默认:5",\n' +
+    '		view:"选择初始化视图: year,month,date,hours,minutes 默认:date"\n' +
+    '		min-view:"最小视图 默认:minutes",\n' +
+    '		max-view:"最大视图 默认:year",\n' +
+    '		format:"数据显示的格式化 默认:yyyy-MM-dd HH:mm [因JS引擎Date实现的不一致 必须存在年份的yyyy,yy,y 否则view->model解回来可能是2001]"\n' +
+    '	}</pre>\n' +
+    '	<h2>以下案例不管怎么搞 都是对$scope.customDate 的控制</h2>\n' +
+    '	<div class="ibox">\n' +
+    '		<div class="ibox-title">\n' +
+    '            Inline\n' +
+    '        </div>\n' +
+    '        <div class="ibox-content">\n' +
+    '        	<p>{{customDate | date:"medium"}}</p>\n' +
+    '			<div ui-date-picker ng-model="customDate" view="date"></div>\n' +
+    '		</div>\n' +
+    '	</div>\n' +
+    '	<div class="ibox">\n' +
+    '		<div class="ibox-title">\n' +
+    '            选取到日，只能选月日 , input 加上readonly属性 变只读\n' +
+    '        </div>\n' +
+    '        <div class="ibox-content">\n' +
+    '			<input type="text" \n' +
+    '			ui-date-time \n' +
+    '			ng-model="customDate"\n' +
+    '			view="date" \n' +
+    '			min-view="date"\n' +
+    '			max-view="month"\n' +
+    '			format="yyyy-MM-dd" \n' +
+    '			readonly\n' +
+    '			>\n' +
+    '		</div>\n' +
+    '	</div>\n' +
+    '	<div class="ibox">\n' +
+    '		<div class="ibox-title">\n' +
+    '            选取到分钟 且设置日期范围 : [ {{minDate | date:"yyyy-MM-dd"}} , {{maxDate | date:"yyyy-MM-dd"}} ] , 还可以直接更改文本框内容 , 加入可验证环节\n' +
+    '        </div>\n' +
+    '        <div class="ibox-content">\n' +
+    '        	<div class="form-group has-feedback" ng-class="{\'has-error\': demoForm.pickdate1.$invalid }">\n' +
+    '        		<div class="col-xs-3">\n' +
+    '					<input class="form-control" type="text" name="pickdate1" \n' +
+    '					ui-date-time \n' +
+    '					ng-model="customDate" \n' +
+    '					view="date"\n' +
+    '					min-date="minDate" \n' +
+    '					max-date="maxDate"\n' +
+    '					step="30"\n' +
+    '					required\n' +
+    '					>\n' +
+    '				</div>\n' +
+    '				<div class="col-xs-5 help-block" ng-messages="demoForm.pickdate1.$error" ng-show="demoForm.pickdate1.$invalid">\n' +
+    '					<span ng-message="required">不能为空</span>\n' +
+    '                    <span ng-message="date">输入日期格式不对</span>\n' +
+    '                    <span ng-message="min">日期范围至少为 {{minDate | date:"yyyy-MM-dd"}}</span>\n' +
+    '                    <span ng-message="max">日期范围最多为 {{maxDate | date:"yyyy-MM-dd"}}</span>\n' +
+    '                </div>\n' +
+    '			</div>\n' +
+    '		</div>\n' +
+    '	</div>\n' +
+    '	<div class="ibox">\n' +
+    '		<div class="ibox-title">\n' +
+    '            设定特殊条件：只允许选中10:00-20:00\n' +
+    '        </div>\n' +
+    '        <div class="ibox-content">\n' +
+    '			待验证\n' +
+    '		</div>\n' +
+    '	</div>\n' +
+    '	<div class="ibox">\n' +
+    '		<div class="ibox-title">\n' +
+    '            选取一段时间\n' +
+    '        </div>\n' +
+    '        <div class="ibox-content">\n' +
+    '			待验证\n' +
+    '		</div>\n' +
+    '	</div>\n' +
+    '	</form>\n' +
+    '</div>\n' +
+    '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('app');
+} catch (e) {
+  module = angular.module('app', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('app/template/form/upload.tpl',
     '<div class="row">\n' +
     '<div class="col-xs-12">\n' +

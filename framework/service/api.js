@@ -105,7 +105,7 @@ angular.module('framework')
         this.errors.push(callback);
     };
 
-    var realGet = function(ins, behavior, params) {
+    var realGet = function(ins, behavior, params , options) {
         var deferred = $q.defer();
         var url = ins.url;
         var _self = ins;
@@ -128,19 +128,26 @@ angular.module('framework')
             if(behavior.charAt(0)=="/"){
                 behavior = behavior.substr(1);
             }
-            var httpOption = {
-                    url: url + behavior,
-                    method: "jsonp",
-                    params: params || {},
-                    paramSerializer : '$httpParamSerializerJQLike'
-                },
-                httpKey = JSON.stringify(httpOption);
+            var httpOptions = {
+                url: url + behavior,
+                method: "jsonp",
+                params: params || {},
+                paramSerializer : '$httpParamSerializerJQLike'
+            };
+            angular.extend(httpOptions, options);
+            //如果method被更改 须修正
+            if(httpOptions.method=="post"){
+                delete httpOptions['params'];
+                httpOptions['data'] = $.param(params);
+                httpOptions['headers'] = {"Content-Type": "application/x-www-form-urlencoded"};
+            }
+            var httpKey = JSON.stringify(httpOptions);
             if (angular.isUndefined(_runnings[httpKey])) {
                 _runnings[httpKey] = {
                     deferred: []
                 };
                 _runnings[httpKey].deferred.push(deferred);
-                $http(httpOption).then(function(result) {
+                $http(httpOptions).then(function(result) {
 
                     var appRes = result.data;
 
@@ -175,15 +182,15 @@ angular.module('framework')
         return deferred.promise;
     };
 
-    Api.prototype.get = function(behavior, params) {
+    Api.prototype.get = function(behavior, params , options) {
         var _self = this;
+        options = options || {};
         if (_self.successes.length == 0 && _self.errors.length == 0) {
-            return realGet(this, behavior, params);
+            return realGet(this, behavior, params , options);
         }
 
         var deferred = $q.defer();
-
-        realGet(this, behavior, params).then(function(data) {
+        realGet(this, behavior, params , options).then(function(data) {
 
             getSeriesPromise(_self.successes, data).then(function(data) {
                 deferred.resolve(data);
