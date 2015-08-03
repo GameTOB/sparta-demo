@@ -12,6 +12,7 @@ angular.module('app')
         .simpleWhen('/form/validate')
         .simpleWhen('/form/upload')
         .simpleWhen('/form/datepicker')
+        .simpleWhen('/form/select')
         .otherwise('/');
     }
 ])

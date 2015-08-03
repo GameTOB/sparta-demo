@@ -1,5 +1,6 @@
 //重置日历短日期本地化文本
 angular.module('app').run(function ($locale) {
+	$locale["DATETIME_FORMATS"]["DAY"] = $locale["DATETIME_FORMATS"]["SHORTDAY"];
     $locale["DATETIME_FORMATS"]["SHORTDAY"] = [
       "\u65e5",
       "\u4e00",

@@ -18,7 +18,8 @@ angular.module('framework')
         createMenuNode(1001, "ngModel", "/form/ngModel"),
         createMenuNode(1002, "validate", "/form/validate"),
         createMenuNode(1003, "upload", "/form/upload"),
-        createMenuNode(1004, "datepicker", "/form/datepicker")
+        createMenuNode(1004, "datepicker", "/form/datepicker"),
+        createMenuNode(1005, "select", "/form/select")
         ])]
     );
 
